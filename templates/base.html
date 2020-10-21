@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Vinyl & CD Webscraper | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+    function ChangeLoader() {
+        document.getElementById("header").className='loader';
+    }
+
+    function HideShop(id) {
+        $("." + id).fadeToggle();
+    }
+    </script>
+  </head>
+  <body>
+    <div id="center">
+      <div id="header" class="normalHeader"><!-- No Content --></div>
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div id="footer">
+      &copy; 2020: Honestly scraped by Remy
+  </body>
+</html>

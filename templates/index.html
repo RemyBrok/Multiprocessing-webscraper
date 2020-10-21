@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}{{ artist }} - {{ title }} {{ format }} {% endblock %}
+
+{% block content %}
+<form action="#" method="post" autocomplete="off">
+  <p><input type="text" id name="artist" placeholder="Artist" onfocus="this.value=''"
+    {% if artist %}
+      value="{{artist}}"
+    {% endif %}
+    /></p>
+  <p><input type="text" name="title" placeholder="Title" onfocus="this.value=''"
+    {% if title %}
+      value="{{title}}"
+    {% endif %}
+    /></p>
+  <p>
+    <label for="vinyl">Vinyl</label>
+      <input type="radio" id="vinyl" value="Vinyl" name="format" {% if format == 'Vinyl' or not format %}checked{% endif %}/>
+    <label for="cd">CD</label>
+      <input type="radio" id="cd" value="CD" name="format" {% if format == 'CD' %}checked{% endif %}/>
+  </p>
+  <p>
+    <label for="EUR">EUR</label>
+      <input type="radio" id="EUR" value="EUR" name="currency" {% if cur == 'EUR' or not cur %}checked{% endif %}/>
+    <label for="GBP">GBP</label>
+      <input type="radio" id="GBP" value="GBP" name="currency" {% if cur == 'GBP' %}checked{% endif %}/>
+    <label for="CHF">CHF</label>
+      <input type="radio" id="CHF" value="CHF" name="currency" {% if cur == 'CHF' %}checked{% endif %} />
+    <label for="PLN">zł</label>
+      <input type="radio" id="PLN" value="PLN" name="currency" {% if cur == 'PLN' %}checked{% endif %} />
+  </p>
+  <input type="submit" value="Search" onclick="ChangeLoader()"/>
+</form>
+
+{% if feedback %}
+  <div id="search_input">{{feedback}}</div>
+{% endif %}
+<ul>
+  {% for r in content %}
+    {% if r[0] == 1 %}
+      <div class="website_url" id="web-{{r[5]}}" onclick="HideShop({{r[5]}})"><a href="{{r[4]}}" target="_blank">{{r[1]}}</a></div>
+    {% else %}
+
+      {% if r[0] == False %}
+        <li class="center"><b>Nothing found</b></li>
+      {% else %}
+        <li class="{{r[5]}}">{% if r[0] %}{{r[0]}} - {% endif %}<a href="{{r[4]}}" taget="_blank">{{r[1]}}</a><dt>{{r[2]}} - {{r[3]}}</dt></li>
+      {% endif %}
+
+    {% endif %}
+  {% endfor %}
+</ul>
+{% endblock %}
